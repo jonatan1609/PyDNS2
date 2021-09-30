@@ -68,9 +68,9 @@ class Header:
             self.ar_count
         )
 
-    @staticmethod
-    def read(pkt_id: int, flags: int):
-        header = Header([], pkt_id, flags)
+    @classmethod
+    def read(cls, pkt_id: int, flags: int):
+        header = cls(0, pkt_id, flags)
         return header
 
 
@@ -93,9 +93,9 @@ class Question:
     def write(self):
         return self.qname + self.q_type + self.q_class
 
-    @staticmethod
-    def read(name: str, q_type: int, q_class: int):
-        question = Question(name)
+    @classmethod
+    def read(cls, name: str, q_type: int, q_class: int):
+        question = cls(name)
         question.q_type = q_type
         question.q_class = q_class
         return question
