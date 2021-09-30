@@ -133,7 +133,7 @@ class Response:
         pkt_id, flags, qd, an, ns, ar = struct.unpack("!HHHHHH", d.read(12))
         name = Response.build_labels(d)
         q_type, q_class, pointer, type_, _, ttl, rd_length = struct.unpack("!HHHHHIH", d.read(16))
-        if pointer >> 14 & 0b11 == 0b11:
+        if pointer >> 14 & 0x3 == 0x3:
             offset = pointer & (1 << 14) - 1
             name = Response.build_labels(io.BytesIO(d.getvalue()[offset:]))
         resource = Resources.resources[type_].parse(d.read(rd_length))
